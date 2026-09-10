@@ -4,6 +4,17 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.4 — 2026-09-11
+
+### Added
+
+- A **Privacy** card at the bottom of Options → Help, with a one-paragraph
+  summary and a link to the full privacy policy. Previously, once installed,
+  nothing in the extension's own UI pointed to the privacy policy — it was
+  only reachable via the Edge store listing or `edge://extensions` → Details
+  → the homepage link → the GitHub repo → its README. This is purely an
+  added link; no existing card, tab, or behavior changed.
+
 ## 1.10.3 — 2026-09-11
 
 Documentation-only pass to make the privacy policy and store listing text
