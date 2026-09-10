@@ -4,6 +4,14 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.2 — 2026-09-11
+
+### Added
+
+- `homepage_url` in the manifest, pointing at the project's GitHub repo
+  (https://github.com/ronedata/form-filler-extension). Shows as a "website"
+  link on the store listing; no effect on behaviour.
+
 ## 1.10.1 — 2026-09-11
 
 Production-readiness pass ahead of publishing to the Microsoft Edge Add-ons store: a full read
