@@ -7,10 +7,12 @@ if you want to.
 
 ## Package to upload
 
-`dist/form-filler-v1.10.1.zip` — built from `manifest.json` + `icons/` +
-`src/` only. `test/`, `README.md`, `CHANGELOG.md`, `PRIVACY.md` and this file
-are deliberately left out; none of them are referenced by the manifest and
-they add nothing at runtime.
+`dist/form-filler-v1.10.3.zip` — matches the version currently in
+`manifest.json`. Built from `manifest.json` + `icons/` + `src/` only, with
+`manifest.json` sitting at the zip's top level (not nested inside another
+folder or zip). `test/`, `README.md`, `CHANGELOG.md`, `PRIVACY.md` and this
+file are deliberately left out; none of them are referenced by the manifest
+and they add nothing at runtime.
 
 Rebuilding it after a future change (PowerShell, from the project root):
 
@@ -34,8 +36,9 @@ without being signed in as you.
 > Form Filler fills web forms with realistic placeholder data — names,
 > emails, phone numbers, addresses and more — so testers and developers
 > don't have to type it by hand. Every value is either made up at random or
-> comes from a rule the user configured themselves; nothing is collected or
-> sent anywhere.
+> comes from a rule the user configured themselves. The extension makes no
+> network requests; the user's rules, saved forms and settings are stored
+> only in the browser's local storage and are never transmitted anywhere.
 
 ## Detailed description (store listing body)
 
@@ -57,11 +60,17 @@ without being signed in as you.
 > map it once — by hand or automatically — and Form Filler will fill the
 > exact same form the same way every time you open it, including dependent
 > dropdowns (like Division → District → Thana) and autocomplete/lookup
-> fields that need a moment to load.
+> fields that need a moment to load. A mapped form can fill itself the
+> moment you click into it, or as soon as the page loads, with no further
+> action from you — you choose which, per form, when you save it.
 >
-> **Nothing leaves your browser.** Form Filler makes no network requests at
-> all — every rule, every saved form, every setting stays in your browser's
-> local storage, on your device. See the privacy policy for details.
+> **No external transmission, ever.** Form Filler makes no network requests
+> of any kind — nothing it does ever leaves your device. Your rules, saved
+> forms and settings are kept only in the browser's local storage; if you
+> choose to remember a form's values while saving it, those values are
+> stored the same way, locally, never sent anywhere. Full details, including
+> exactly when a saved form fills itself automatically, are in the privacy
+> policy.
 >
 > **Built for real-world forms**, including ones with dropdowns that only
 > populate after an earlier choice, autocomplete fields that need a typed
@@ -80,8 +89,8 @@ self-explanatory. Suggested wording:
 
 | Permission | Justification |
 | --- | --- |
-| Read and change all your data on the websites you visit (`host_permissions: <all_urls>`, and the content script's `<all_urls>` match) | The extension's entire purpose is filling in form fields on whatever page the user is using it on. There is no way to know that page in advance, so the permission has to cover every site. |
-| `storage` | Saves the user's custom rules, saved form maps and settings locally via `chrome.storage.local`. Nothing is synced or transmitted. |
+| Read and change all your data on the websites you visit (`host_permissions: <all_urls>`, and the content script's `<all_urls>` match) | The extension's entire purpose is filling in form fields on whatever page the user is using it on, so the permission has to cover every site. It's also what lets a saved form map detect a page the user has mapped and — depending on the trigger the user chose for that map — check or fill it automatically, without a fresh action each visit. |
+| `storage` | Saves the user's custom rules, saved form maps (including any field values the user chose to remember while saving one) and settings via `chrome.storage.local`. Local only — nothing is synced to the user's account or transmitted anywhere. |
 | `contextMenus` | Adds the "Form Filler" entry to the right-click menu, one of the ways to trigger a fill. |
 | `activeTab`, `scripting` | Runs the fill action on the current tab on request, and injects the content script into tabs that were already open before install/update (normally content scripts only attach to tabs opened after installation). |
 

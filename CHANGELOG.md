@@ -4,6 +4,40 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.3 — 2026-09-11
+
+Documentation-only pass to make the privacy policy and store listing text
+match actual code behavior exactly, ahead of Edge Add-ons submission. No
+code changed — `manifest.json`'s permissions, `src/`, and every existing
+feature (custom fields, form maps, remember-values, automatic triggers) are
+unchanged; only `PRIVACY.md`, `STORE_LISTING.md`, and the published privacy
+policy page were rewritten.
+
+### Fixed (wording, not behavior)
+
+- **"Only when you ask it to" was inaccurate.** A form map set to "When I
+  click into the form" (the default) reads the form's current field values
+  on the user's first ordinary click or focus inside it — not a dedicated
+  fill action. A map set to "Automatically when the page loads" reads and
+  fills with no user action at all. Both are now described precisely, and
+  distinguished from custom field rules (which genuinely only ever run on
+  an explicit shortcut/popup/menu action).
+- **The "remember values" disclosure was incomplete.** The code does not
+  distinguish field types when capturing a form's current values, so if a
+  password field already has something typed into it when a form is
+  mapped with "remember what is typed in it right now," that password is
+  captured and stored the same as any other field. This was previously
+  described only as "names, phone numbers, institute names, and similar" —
+  it now says so explicitly, along with the fact that capture happens the
+  moment "Map this form" is clicked (before the remember-values choice is
+  made), and is held locally for up to 10 minutes if the map is never
+  finished.
+- **"Form Filler collects nothing" was ambiguous** and is removed from
+  every listing surface. Replaced with precise, separately-verifiable
+  claims: no network requests (checkable by reading the source), settings
+  and rules stored locally, and remembered values stored locally when that
+  feature is explicitly used — never "nothing is collected."
+
 ## 1.10.2 — 2026-09-11
 
 ### Added
