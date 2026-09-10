@@ -26,10 +26,18 @@ Compress-Archive -Path "$staging\*" -DestinationPath "dist\form-filler-v<version
 
 ## Privacy policy URL
 
-Paste the published page's link (see `PRIVACY.md` for the current one, or
-republish it) — make sure it's set to public/shareable first, since Edge's
-review team and anyone visiting the store listing need to be able to open it
-without being signed in as you.
+```
+https://github.com/ronedata/form-filler-extension/blob/main/PRIVACY.md
+```
+
+Already public — the repo is public, so this needs no extra setup and works
+right now. It stays in sync automatically: whatever `PRIVACY.md` says at the
+time someone opens the link is what they see.
+
+A more visually designed standalone copy of the same policy also exists (see
+`PRIVACY.md` for the link) if you'd rather use that instead — just open it
+once and use its share menu to make it public first, since that one is
+private until you do.
 
 ## Single purpose description
 
@@ -109,5 +117,7 @@ fresh set specifically framed for the store listing (Edge wants 1280×800 or
       can't launch a real browser with `--load-extension` to do this last
       check for you — everything else has been verified by other means (see
       `CHANGELOG.md`), but this one step needs a real browser window.
-- [ ] Make sure the privacy policy page is set to public/shareable.
+- [x] Privacy policy URL is already public (the GitHub link above needs no
+      extra step) — only relevant if you choose the standalone designed page
+      instead, which does need its share menu used once.
 - [ ] Have a support/contact email ready — the dashboard requires one.

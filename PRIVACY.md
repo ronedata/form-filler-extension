@@ -145,8 +145,13 @@ listing.
 
 ---
 
-*A hosted copy of this policy — the version to link from the Edge Add-ons*
-*dashboard's privacy policy field — is published at:*
-*https://claude.ai/code/artifact/9fe4b3fa-853b-4075-ab33-aebbaa9826d5*
-*(open it once and use its share menu to make it publicly viewable before*
-*pasting the link into the dashboard — artifacts are private by default).*
+*The URL to paste into the Edge Add-ons dashboard's privacy policy field:*
+*https://github.com/ronedata/form-filler-extension/blob/main/PRIVACY.md*
+*— this file, rendered by GitHub. It's public already (the repo is public),*
+*no extra setup needed, and it updates the moment this file is pushed.*
+
+*A more visually designed copy of the same policy is also published at*
+*https://claude.ai/code/artifact/9fe4b3fa-853b-4075-ab33-aebbaa9826d5 — use*
+*that one instead if you'd rather link a standalone page, but open it once*
+*and use its share menu to make it public first (artifacts are private by*
+*default; the GitHub link above needs no such step).*
