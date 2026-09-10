@@ -3,6 +3,10 @@
 A Chrome/Edge extension (Manifest V3) that fills forms with realistic fake data in one click —
 built around **unlimited custom fields** and **per-URL rules**.
 
+**[Privacy Policy](PRIVACY.md)** — what gets stored, when a page is read or changed, and exactly
+what "remember what is typed in it right now" keeps. **[Store submission material](STORE_LISTING.md)**
+— permission justifications, listing text, and the packaging checklist for Edge Add-ons.
+
 ## Install (unpacked)
 
 1. Open `chrome://extensions` (or `edge://extensions`).
