@@ -908,7 +908,9 @@ details.more-options {
 
 .entries {
   width: 100%;
+  min-width: 820px;
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: 13px;
 }
 
@@ -945,11 +947,19 @@ details.more-options {
 }
 
 .col-on {
-  width: 44px;
+  width: 5%;
+}
+
+.col-field {
+  width: 29%;
+}
+
+.col-type {
+  width: 21%;
 }
 
 .col-opts {
-  width: 40%;
+  width: 45%;
 }
 
 .entry-label {
@@ -1019,6 +1029,7 @@ details.more-options {
   flex: 1;
   width: auto;
   min-width: 0;
+  max-width: 320px;
 }
 
 .mini select.control {

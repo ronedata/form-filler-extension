@@ -4,6 +4,19 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.6 — 2026-09-10
+
+### Fixed
+
+- The Form maps table's "Details" column could reserve far more width than
+  its content needed on a wide, real-world form (many fields, long field
+  names) — leaving a large empty gap next to short dropdown/constant-value
+  boxes instead of a clean row. The table now uses fixed, predictable column
+  widths instead of letting the browser guess them from content, and each
+  Details control has a sensible maximum width instead of stretching to fill
+  whatever space is left over. Reported by the user with a screenshot of a
+  159-field admission form. No behavior change — layout only.
+
 ## 1.10.5 — 2026-09-10
 
 ### Changed
