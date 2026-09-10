@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form Filler Privacy Policy</title>
+<meta name="description" content="The privacy policy for the Form Filler browser extension.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface-2: #edf1f5;
+    --text: #16202f;
+    --muted: #57657a;
+    --faint: #8592a3;
+    --border: #e0e5ec;
+    --border-strong: #c9d1dc;
+    --accent: #1f7a63;
+    --accent-strong: #145c4a;
+    --accent-tint: #e4f2ee;
+    --accent-tint-border: #bfe1d7;
+    --mono-ink: #3a4657;
+    --shadow: 0 1px 2px rgba(22, 32, 47, 0.04), 0 8px 24px -12px rgba(22, 32, 47, 0.10);
+    color-scheme: light dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1219;
+      --surface: #141b26;
+      --surface-2: #1a2330;
+      --text: #e9edf3;
+      --muted: #a3aec0;
+      --faint: #71809a;
+      --border: #253143;
+      --border-strong: #32405a;
+      --accent: #4fbfa3;
+      --accent-strong: #7fd4bd;
+      --accent-tint: #12241f;
+      --accent-tint-border: #204338;
+      --mono-ink: #c3cbdb;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -14px rgba(0, 0, 0, 0.55);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0d1219;
+    --surface: #141b26;
+    --surface-2: #1a2330;
+    --text: #e9edf3;
+    --muted: #a3aec0;
+    --faint: #71809a;
+    --border: #253143;
+    --border-strong: #32405a;
+    --accent: #4fbfa3;
+    --accent-strong: #7fd4bd;
+    --accent-tint: #12241f;
+    --accent-tint-border: #204338;
+    --mono-ink: #c3cbdb;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -14px rgba(0, 0, 0, 0.55);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 16.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent-tint-border); }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(28px, 5vw, 64px) 24px 96px;
+  }
+
+  header.doc-head {
+    padding-bottom: 28px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-tint);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 4.4vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0 0 10px;
+    text-wrap: balance;
+    color: var(--text);
+  }
+
+  .doc-sub {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--muted);
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  .doc-meta {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+
+  .doc-meta strong { color: var(--muted); font-weight: 600; }
+
+  /* -------------------------------------------------- at-a-glance strip */
+  .glance {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 0 40px;
+    box-shadow: var(--shadow);
+  }
+
+  .glance-tile {
+    background: var(--surface);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .glance-value {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    color: var(--accent-strong);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .glance-label {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  @media (max-width: 620px) {
+    .glance { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* --------------------------------------------------------------- prose */
+  article { font-family: "Source Serif 4", Georgia, serif; }
+
+  article > section { margin: 0 0 40px; }
+
+  h2 {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: -0.005em;
+    color: var(--text);
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+
+  h2 .num {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-weight: 500;
+    color: var(--faint);
+    font-size: 15px;
+    margin-right: 10px;
+  }
+
+  p { margin: 0 0 14px; color: var(--text); max-width: 66ch; }
+  p.lead {
+    font-size: 18px;
+    color: var(--muted);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-weight: 500;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 600; color: var(--text); }
+
+  a { color: var(--accent-strong); text-decoration-color: var(--accent-tint-border); text-underline-offset: 2px; }
+  a:hover { text-decoration-color: currentColor; }
+
+  ul.doc-list {
+    margin: 0 0 14px;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 66ch;
+  }
+
+  ul.doc-list li {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  ul.doc-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--accent-tint);
+    border: 1.5px solid var(--accent);
+  }
+
+  code, .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em;
+    color: var(--mono-ink);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.08em 0.42em;
+    white-space: nowrap;
+  }
+
+  .callout {
+    background: var(--accent-tint);
+    border: 1px solid var(--accent-tint-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-mark {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--surface);
+    border: 1px solid var(--accent-tint-border);
+    border-radius: 999px;
+    padding: 4px 11px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .callout p { margin: 0; color: var(--text); max-width: none; }
+
+  /* --------------------------------------------------------------- table */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 14.5px;
+    min-width: 560px;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    background: var(--surface-2);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td.perm { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: var(--accent-strong); font-weight: 600; white-space: nowrap; }
+  td.why { color: var(--muted); font-family: "Source Serif 4", Georgia, serif; font-size: 15px; line-height: 1.55; }
+
+  /* --------------------------------------------------------------- footer */
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--faint);
+  }
+
+  footer .brandmark { display: flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 600; }
+
+  .brandmark svg { flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="doc-head">
+    <p class="eyebrow">Privacy Policy</p>
+    <h1>Nothing here ever leaves your device.</h1>
+    <p class="doc-sub">A precise explanation of what the Form Filler browser extension stores, when it reads a page, and when a saved form fills itself automatically.</p>
+    <div class="doc-meta">
+      <span><strong>Last updated</strong> — September 2026</span>
+      <span><strong>Applies to</strong> — Form Filler, all versions</span>
+      <span><strong>Storage used</strong> — <code>chrome.storage.local</code> only</span>
+    </div>
+  </header>
+
+  <div class="glance">
+    <div class="glance-tile">
+      <span class="glance-value">0</span>
+      <span class="glance-label">network requests made by the extension, ever</span>
+    </div>
+    <div class="glance-tile">
+      <span class="glance-value">0</span>
+      <span class="glance-label">accounts, logins, or sign-ups required</span>
+    </div>
+    <div class="glance-tile">
+      <span class="glance-value">Local</span>
+      <span class="glance-label">only — nothing syncs to your Google or Microsoft account</span>
+    </div>
+    <div class="glance-tile">
+      <span class="glance-value">You</span>
+      <span class="glance-label">the only one who can read what's stored, ever</span>
+    </div>
+  </div>
+
+  <article>
+    <section>
+      <p class="lead">Form Filler fills in web forms with values you configure or the extension generates. Everything it does happens on your own device — but "on your device" still means real reading and writing of page content, and one saved-form mode fills without you pressing anything. This page explains exactly when each of those happens, not just where the data ends up.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">01</span>What gets stored, and where</h2>
+      <p>Form Filler saves your custom fill rules, any forms you've mapped, and your settings using <code>chrome.storage.local</code> — a storage area the browser gives to the extension alone, kept on your device. It deliberately does not use <code>chrome.storage.sync</code>, so none of it is copied to your browser account or pushed to your other devices.</p>
+      <ul class="doc-list">
+        <li><strong>Custom field rules</strong> — the matching words and value types you define, for example "any field named <code>email</code> gets a random address."</li>
+        <li><strong>Form maps</strong> — a saved copy of one form's fields. If you choose "remember what is typed in it right now" while saving a map, the extension stores exactly what was in the form at that moment — and it does not distinguish field types while doing this, so <strong>a password field that already had something typed into it is captured and stored the same as any other field</strong>. Leave a field blank before saving, or switch it to a generated value afterward, if you don't want that.</li>
+        <li><strong>Settings</strong> — your preferences: password length, email domains, name style, and the rest.</li>
+      </ul>
+      <p>Capture happens the moment you click <strong>"Map this form"</strong> in the popup — before you've chosen whether to keep those values. The form's current fields are read and held locally right away, so the options page can show them to you; that temporary copy is deleted as soon as you finish or cancel, or automatically the next time you open the options page if 10 minutes have passed and you did neither.</p>
+      <p>All of it is removed the moment you uninstall the extension, or immediately if you press <strong>Backup → Delete everything</strong> in its settings. None of it is ever transmitted anywhere.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">02</span>Where it doesn't go</h2>
+      <div class="callout">
+        <span class="callout-mark">Verifiable</span>
+        <p>The extension's source contains no call to <code>fetch</code>, <code>XMLHttpRequest</code>, <code>WebSocket</code>, or any other way of reaching a network. There is no server this extension talks to — not the developer's, not an analytics vendor's, not anyone's. This isn't a policy promise; it's a property of the code, and it's checkable by reading it. Everything in section 01 stays local for exactly that reason: there's nowhere for it to go.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">03</span>When the extension reads or changes a page</h2>
+      <p><strong>Custom field rules</strong> — Fill all fields, Fill this form, Fill this field, the right-click menu — only ever run when you take an explicit action: a keyboard shortcut, a popup button, or the right-click menu. Nothing happens outside those moments.</p>
+      <p><strong>Form maps are different</strong>, depending on the "Fill it" setting you chose when saving that map:</p>
+      <ul class="doc-list">
+        <li><strong>Only when I ask</strong> — same as a custom field rule: nothing until you request it.</li>
+        <li><strong>When I click into the form</strong> (the default) — once saved, the extension checks every time that page loads whether the mapped form is present, then waits. The first time you click or focus anywhere inside that form — an ordinary interaction, not a dedicated "fill" action — it reads the form's current values and fills it.</li>
+        <li><strong>Automatically when the page loads</strong> — the extension reads the form's current values and fills it as soon as the page loads. No click, no keystroke, no action from you at all.</li>
+      </ul>
+      <p>This automatic checking only ever happens on a page <em>you</em> have mapped — a URL pattern you set, usually the page you were on when you created the map. It never happens on a page you haven't mapped. Whether automatic or requested, nothing about a page's content is ever sent, logged, or reported anywhere — it stays exactly where sections 01–02 describe.</p>
+      <p>Values Form Filler generates itself — names, phone numbers, addresses — are made up at random. They don't describe you, and nothing about you or the page you're on is used to produce them.</p>
+    </section>
+
+    <section>
+      <h2><span class="num">04</span>Permissions, and why each one exists</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Permission</th><th>What it's for</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="perm">host access<br>(all sites)</td>
+              <td class="why">Filling forms works on whichever page you're using the extension on. It's also what lets a saved form map detect a mapped page and check or fill it automatically, per section 03.</td>
+            </tr>
+            <tr>
+              <td class="perm">storage</td>
+              <td class="why">Saving your rules, form maps — including any remembered values — and settings locally, as described in section 01.</td>
+            </tr>
+            <tr>
+              <td class="perm">contextMenus</td>
+              <td class="why">Adding the "Form Filler" entry to the right-click menu.</td>
+            </tr>
+            <tr>
+              <td class="perm">activeTab / scripting</td>
+              <td class="why">Running a fill on the current tab when you ask for one, including tabs that were already open before the extension was installed or updated.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="num">05</span>Changes to this policy</h2>
+      <p>If this ever changes, the date at the top of the page changes with it. Given the extension has no server, no accounts and no network access to add one to, there's little reason to expect that.</p>
+    </section>
+  </article>
+
+  <footer>
+    <span class="brandmark">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="14" height="14" rx="4" fill="var(--accent-tint)" stroke="var(--accent)" stroke-width="1.2"/>
+        <path d="M4.5 8.4 6.8 10.6 11.5 5.6" stroke="var(--accent-strong)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Form Filler
+    </span>
+    <span>Questions about this policy can be sent to the address listed on the extension's store page.</span>
+  </footer>
+</div>
+</body>
+</html>
