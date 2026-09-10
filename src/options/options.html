@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Form Filler &mdash; Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <h1>Form Filler</h1>
+        <span class="version" id="version"></span>
+      </div>
+      <nav class="tabs" id="tabs" aria-label="Sections">
+        <button class="tab is-active" data-tab="fields" type="button">Custom fields</button>
+        <button class="tab" data-tab="forms" type="button">Form maps</button>
+        <button class="tab" data-tab="general" type="button">Settings</button>
+        <button class="tab" data-tab="backup" type="button">Backup</button>
+        <button class="tab" data-tab="help" type="button">Help</button>
+      </nav>
+      <span class="save-state" id="saveState" role="status"></span>
+    </header>
+
+    <main>
+      <!-- ------------------------------------------------ Custom fields -->
+      <section class="panel is-active" id="panel-fields">
+        <div class="panel-head">
+          <h2>Custom fields</h2>
+          <p>Tell Form Filler what to type into a field, based on its name, label or placeholder.</p>
+        </div>
+
+        <div class="toolbar">
+          <div class="search">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5 14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input type="search" id="fieldSearch" class="control" placeholder="Search rules" aria-label="Search rules" />
+          </div>
+          <select id="fieldFilter" class="control" aria-label="Show">
+            <option value="all">All rules</option>
+            <option value="global">Every website</option>
+            <option value="site">One website only</option>
+            <option value="enabled">Switched on</option>
+            <option value="disabled">Switched off</option>
+          </select>
+          <span class="toolbar-gap"></span>
+          <button class="btn" id="togglePacks" type="button" aria-expanded="false" aria-controls="packDrawer">Ready-made rules</button>
+          <button class="btn" id="toggleUrlTest" type="button" aria-expanded="false" aria-controls="urlDrawer">Test a website</button>
+          <button class="btn primary" id="addField" type="button">+ Add field</button>
+        </div>
+
+        <div class="drawer" id="packDrawer" hidden>
+          <p class="drawer-title">Add a whole set of rules at once. Anything you already have is skipped, and every rule can be edited afterwards.</p>
+          <div class="pack-grid" id="packCards"></div>
+          <p class="drawer-note" id="packHint" role="status"></p>
+        </div>
+
+        <div class="drawer" id="urlDrawer" hidden>
+          <label class="drawer-title" for="urlTest">Paste a web address to see which rules would run there. The others are dimmed.</label>
+          <div class="drawer-row">
+            <input type="text" id="urlTest" class="control" placeholder="https://example.com/account/signup" />
+            <span class="drawer-result" id="urlTestResult"></span>
+          </div>
+        </div>
+
+        <p class="list-meta" id="listMeta"></p>
+        <div id="fieldList" class="field-list"></div>
+        <div class="empty" id="fieldsEmpty" hidden></div>
+      </section>
+
+      <!-- ---------------------------------------------------- Form maps -->
+      <section class="panel" id="panel-forms">
+        <div class="panel-head">
+          <h2>Form maps</h2>
+          <p>A saved copy of one form. Every field gets exactly the value you choose, and the form can fill itself the moment you click into it.</p>
+        </div>
+
+        <div class="card highlight" id="capturePane" hidden>
+          <h3>Save a form</h3>
+          <p class="step-help" id="captureMeta"></p>
+          <label class="field">
+            <span class="label">Which form on that page?</span>
+            <select id="captureSelect" class="control"></select>
+          </label>
+          <label class="check">
+            <input type="checkbox" id="captureUseValues" />
+            Remember what is typed in it right now
+          </label>
+          <p class="step-help" id="captureValueHint"></p>
+          <div class="button-row">
+            <button class="btn primary" id="captureCreate" type="button">Save form</button>
+            <button class="btn" id="captureDismiss" type="button">Cancel</button>
+          </div>
+        </div>
+
+        <div id="formList" class="field-list"></div>
+        <div class="empty" id="formsEmpty" hidden>
+          <h3>No form maps yet</h3>
+          <ol class="steps-list">
+            <li>Open the page that has the form. Filling it in by hand first is best: the map will remember exactly what you typed.</li>
+            <li>Click the Form Filler icon in the toolbar and choose <strong>Map this form</strong>.</li>
+            <li>Pick the form, check the values, and you’re done. Next time, click into the form and it fills itself.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------ Settings -->
+      <section class="panel" id="panel-general">
+        <div class="panel-head">
+          <h2>Settings</h2>
+          <p>These apply everywhere. Changes are saved as you make them.</p>
+        </div>
+
+        <div class="grid">
+          <fieldset class="card">
+            <legend>What gets filled</legend>
+            <label class="check"><input type="checkbox" data-setting="ignoreHiddenFields" /> Skip fields you can’t see</label>
+            <label class="check"><input type="checkbox" data-setting="ignoreDisabledFields" /> Skip fields that are greyed out or locked</label>
+            <label class="check"><input type="checkbox" data-setting="ignoreFieldsWithContent" /> Don’t touch fields that already have something in them</label>
+            <label class="check"><input type="checkbox" data-setting="fillPasswordFields" /> Fill password fields</label>
+            <label class="check"><input type="checkbox" data-setting="agreeToTerms" /> Tick “I agree” checkboxes</label>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>While filling</legend>
+            <label class="check"><input type="checkbox" data-setting="confirmPageFill" /> Ask before filling a whole page</label>
+            <label class="check"><input type="checkbox" data-setting="highlightFilled" /> Briefly outline the fields that were filled</label>
+            <label class="check"><input type="checkbox" data-setting="showContextMenu" /> Show Form Filler in the right-click menu</label>
+            <p class="step-help">
+              Keyboard shortcuts can be changed at <code>chrome://extensions/shortcuts</code>.
+            </p>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Dropdowns and suggestion lists</legend>
+            <label class="check"><input type="checkbox" data-setting="waitForDropdowns" /> Wait for dropdowns that load after another choice</label>
+            <label class="field">
+              <span class="label">Wait at most (ms)</span>
+              <input type="number" min="0" step="250" class="control" data-setting="dropdownWaitMs" />
+            </label>
+            <p class="step-help">Applies to every fill. The wait only happens when the page is actually loading something, so ordinary forms stay fast.</p>
+
+            <label class="field">
+              <span class="label">Never randomly pick a dropdown or radio option containing (one per line)</span>
+              <textarea rows="2" class="control" data-setting="excludedOptionWords" placeholder="Other&#10;N/A&#10;Prefer not to say"></textarea>
+              <span class="field-help">Checked against the option's value and its visible text. If every option is on this list, the field is left as it is. A rule or form map that names an option on purpose still uses it.</span>
+            </label>
+
+            <label class="check"><input type="checkbox" data-setting="autoPickSuggestions" /> Pick from suggestion lists automatically</label>
+            <p class="step-help">For lookup fields where you type and choose, such as an institute search. A rule or form map for that field always comes first.</p>
+            <label class="field">
+              <span class="label">Type at least this many letters first</span>
+              <input type="number" min="1" max="4" class="control" data-setting="suggestionMinChars" />
+              <span class="field-help">Most suggestion lists need a couple of letters before they search. Raise this to 3 or 4 if nothing ever shows up; each try uses different letters, so raising it doesn't mean typing anything in particular.</span>
+            </label>
+            <div class="row">
+              <label class="field">
+                <span class="label">Take</span>
+                <select class="control" data-setting="suggestionPick">
+                  <option value="first">The first suggestion</option>
+                  <option value="random">A random suggestion</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="label">Wait at most (ms)</span>
+                <input type="number" min="0" step="250" class="control" data-setting="suggestionWaitMs" />
+              </label>
+            </div>
+            <label class="field">
+              <span class="label">Choose a suggestion by</span>
+              <select class="control" data-setting="suggestionCommit">
+                <option value="click">Clicking it</option>
+                <option value="keyboard">Arrow keys + Enter</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="label">Suggestion list selector (empty = detect)</span>
+              <input type="text" class="control" data-setting="suggestionSelector" placeholder=".typeahead li" />
+            </label>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Names</legend>
+            <label class="field">
+              <span class="label">Style</span>
+              <select class="control" data-setting="nameStyle">
+                <option value="bangladeshi">Bangladeshi — Tanvir Hossain, Nusrat Jahan</option>
+                <option value="english">English — James Smith, Mary Johnson</option>
+              </select>
+              <span class="field-help">Used for name fields, and for usernames and email addresses made from a name.</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Email addresses</legend>
+            <label class="field">
+              <span class="label">The part before @</span>
+              <select class="control" data-setting="emailUsernameMode">
+                <option value="name">Made from a random name</option>
+                <option value="random">Random letters and numbers</option>
+                <option value="list">Picked from my list below</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="label">My list (one per line)</span>
+              <textarea rows="3" class="control" data-setting="emailUsernameList" placeholder="qa.tester&#10;demo.user"></textarea>
+            </label>
+            <label class="field">
+              <span class="label">The part after @ (one per line)</span>
+              <textarea rows="3" class="control" data-setting="emailDomains" placeholder="example.com&#10;mailinator.com"></textarea>
+            </label>
+            <label class="field">
+              <span class="label">Always start with</span>
+              <input type="text" class="control" data-setting="emailPrefix" placeholder="test+" />
+            </label>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Default values</legend>
+            <div class="row">
+              <label class="field">
+                <span class="label">Password length</span>
+                <input type="number" min="4" max="64" class="control" data-setting="passwordLength" />
+              </label>
+              <label class="check self-end"><input type="checkbox" data-setting="passwordUseSymbols" /> Include symbols</label>
+            </div>
+            <label class="field">
+              <span class="label">Always use this password</span>
+              <input type="text" class="control" data-setting="passwordFixedValue" placeholder="Leave empty for a random one" />
+            </label>
+            <label class="field">
+              <span class="label">Phone number pattern</span>
+              <input type="text" class="control" data-setting="phoneTemplate" placeholder="+8801[3-9]########" />
+              <span class="field-help"><code>#</code> is any digit, <code>[3-9]</code> is one digit from 3 to 9.</span>
+            </label>
+            <div class="row">
+              <label class="field">
+                <span class="label">Numbers from</span>
+                <input type="number" class="control" data-setting="defaultNumberMin" />
+              </label>
+              <label class="field">
+                <span class="label">to</span>
+                <input type="number" class="control" data-setting="defaultNumberMax" />
+              </label>
+            </div>
+            <div class="row">
+              <label class="field">
+                <span class="label">Text: at least (words)</span>
+                <input type="number" min="1" class="control" data-setting="defaultTextMinWords" />
+              </label>
+              <label class="field">
+                <span class="label">at most (words)</span>
+                <input type="number" min="1" class="control" data-setting="defaultTextMaxWords" />
+              </label>
+            </div>
+            <div class="row">
+              <label class="field">
+                <span class="label">Date format</span>
+                <input type="text" class="control" data-setting="dateFormat" placeholder="YYYY-MM-DD" />
+              </label>
+              <label class="field">
+                <span class="label">Time format</span>
+                <input type="text" class="control" data-setting="timeFormat" placeholder="HH:mm" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Advanced</legend>
+            <p class="step-help">Fine-tuning for tricky pages. Most forms never need these changed.</p>
+            <label class="field">
+              <span class="label">Never fill elements matching this CSS selector</span>
+              <input type="text" class="control" data-setting="ignoredSelectors" placeholder=".no-autofill, #captcha" />
+              <span class="field-help">Blocks specific elements from every fill, by CSS selector — a captcha widget, an analytics field, anything your rules don't already avoid.</span>
+            </label>
+            <label class="field">
+              <span class="label">Ignore these input types (comma separated)</span>
+              <input type="text" class="control" data-setting="ignoredTypes" placeholder="file, submit, hidden" />
+              <span class="field-help">Whole categories of field to always skip, everywhere, no matter what page they're on.</span>
+            </label>
+            <label class="field">
+              <span class="label">Cut generated text after this many characters (0 = never)</span>
+              <input type="number" min="0" class="control" data-setting="defaultMaxLength" />
+              <span class="field-help">Caps made-up paragraph text when a field doesn't declare its own <code>maxlength</code>, so it can't overflow a field the site expects to be short.</span>
+            </label>
+            <label class="check"><input type="checkbox" data-setting="triggerClickEvents" /> Send click events to checkboxes and radio buttons</label>
+            <p class="step-help">Some sites listen for an actual click rather than a value changing. Leave this on unless it's causing double-clicks; a few frameworks react to both and end up toggling a box back off.</p>
+          </fieldset>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------- Backup -->
+      <section class="panel" id="panel-backup">
+        <div class="panel-head">
+          <h2>Backup</h2>
+          <p>Keep a copy of your rules, form maps and settings, or move them to another computer.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Save a backup</h3>
+            <p class="step-help">Downloads everything as one file.</p>
+            <button class="btn primary" id="exportBtn" type="button">Download backup</button>
+          </div>
+
+          <div class="card">
+            <h3>Restore from a backup</h3>
+            <label class="check"><input type="radio" name="importMode" value="replace" checked /> Replace everything with the file</label>
+            <label class="check"><input type="radio" name="importMode" value="append" /> Keep my settings and add the file’s rules and form maps</label>
+            <input type="file" id="importFile" accept="application/json,.json" class="control" />
+            <p class="import-status" id="importStatus" role="status"></p>
+          </div>
+
+          <div class="card danger">
+            <h3>Start over</h3>
+            <p class="step-help">Deletes every rule and form map and puts the settings back to how they were. Download a backup first if you might want them later.</p>
+            <button class="btn danger" id="resetBtn" type="button">Delete everything</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------------------------------------------- Help -->
+      <section class="panel" id="panel-help">
+        <div class="panel-head">
+          <h2>Help</h2>
+          <p>How the pieces fit together.</p>
+        </div>
+
+        <div class="card highlight">
+          <h3>Quick start</h3>
+          <ol class="steps-list">
+            <li>On any page with a form, click the Form Filler icon and press <strong>Fill all fields</strong>. Most forms fill sensibly with no setup.</li>
+            <li>Want a particular value in a particular field? Go to <strong>Custom fields</strong> and press <strong>+ Add field</strong>, or start from <strong>Ready-made rules</strong>.</li>
+            <li>Fill the same form again and again? Fill it once by hand, then choose <strong>Map this form</strong> in the popup.</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3>Matching a field</h3>
+          <p>
+            A rule looks for its words in a field’s name, id, placeholder, label and aria-label, and
+            fills the field if any of them contains one. Open <strong>Advanced matching</strong> in a
+            rule to compare exactly, use a regular expression, look in other attributes, or point at
+            fields with a CSS selector such as <code>form#checkout input[name^="card"]</code>.
+          </p>
+          <p>
+            Rules are checked from the top. A rule made for one website always beats a rule for every
+            website, so you can keep a general rule and override it on a single site.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Ready-made rules</h3>
+          <ul>
+            <li><strong>Essentials</strong> &mdash; names, email, phone, address, comments. Added on install.</li>
+            <li><strong>Bangladesh</strong> &mdash; BD mobiles, 4-digit post codes, NID, birth registration, board roll, registration no, passing year, GPA.</li>
+            <li><strong>Money and numbers</strong> &mdash; fees, discounts, received amounts, quantities, kept to sensible ranges.</li>
+            <li><strong>Leave these alone</strong> &mdash; never touch captchas, OTPs, coupon codes or search boxes. Added at the top, because a rule only protects a field if it is checked first.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Choosing websites</h3>
+          <p>Pick <strong>Only these websites</strong> in a rule and list them one per line:</p>
+          <ul>
+            <li><strong>Domain</strong> &mdash; <code>example.com</code> also covers <code>app.example.com</code></li>
+            <li><strong>Wildcard</strong> &mdash; <code>example.com/signup*</code>, <code>https://*.shop.com/*</code></li>
+            <li><strong>Regular expression</strong> &mdash; <code>^https://(stage|prod)\.acme\.io/</code></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Form maps</h3>
+          <p>
+            A custom field matches by words; a form map pins a value to every field of one specific
+            form, so it comes out identical each time. It beats every custom field rule.
+          </p>
+          <ul>
+            <li><strong>When I click into the form</strong> &mdash; the first click fills the whole form.</li>
+            <li><strong>Automatically when the page loads</strong> &mdash; no click needed.</li>
+            <li><strong>Only when I ask</strong> &mdash; from <strong>Fill it now</strong> in the popup.</li>
+          </ul>
+          <p>
+            Under <strong>Advanced</strong>: <em>Fill only once each time the page loads</em> stops a
+            map firing on every click, and <em>Only fill when the form is still empty</em> keeps it
+            from overwriting anything you typed.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Dropdowns that depend on each other, and lookups</h3>
+          <p>
+            Every fill &mdash; <strong>Fill all fields</strong>, <strong>Fill this form</strong>, custom
+            fields and form maps &mdash; waits for dropdowns that load after an earlier choice, so chains
+            like Division &rarr; District &rarr; Thana fill in order. It notices the page reacting, or a
+            loading overlay, and waits until it is done. Turn it off or change the limit under
+            <strong>Settings &rarr; Dropdowns and suggestion lists</strong>; a form map has its own
+            timings under <strong>Advanced</strong>.
+          </p>
+          <p>
+            Lookup fields are handled automatically too: when no rule covers the field, Form Filler
+            types a short search and takes a suggestion, so the hidden id behind it gets set. It
+            recognises standard autocomplete boxes and the common pattern of a name box with an empty
+            <code>…Id</code> field beside it.
+          </p>
+          <p>
+            For a field where you type and pick from suggestions, the most reliable approach is to
+            fill the form by hand, then map it with <em>Remember what is typed in it right now</em>
+            ticked. The map keeps the text <em>and</em> the hidden id the page stored with it.
+          </p>
+          <p>
+            If you want a fresh lookup each time instead, choose <strong>Autocomplete (type, then
+            pick)</strong> as the value: say what to type and which suggestion to take.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Value patterns</h3>
+          <ul>
+            <li><code>L</code> capital letter &middot; <code>l</code> small letter &middot; <code>C</code> either</li>
+            <li><code>#</code> digit &middot; <code>*</code> letter or digit &middot; <code>?</code> any character</li>
+            <li><code>[3-9]</code> or <code>[013]</code> &mdash; one character from that set</li>
+            <li><code>\</code> makes the next character literal</li>
+            <li>Bangladeshi mobile: <code>+8801[3-9]########</code> &rarr; <code>+8801712345678</code></li>
+          </ul>
+          <p>Date format letters: <code>YYYY YY MM M DD D HH H hh h mm ss A a</code>.</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" hidden>
+      <span id="toastText"></span>
+      <button class="toast-btn" id="toastUndo" type="button" hidden>Undo</button>
+    </div>
+
+    <!-- ------------------------------------------------ custom field card -->
+    <template id="fieldTemplate">
+      <article class="field-card">
+        <div class="field-head">
+          <span class="handle" title="Drag to reorder" draggable="true" aria-hidden="true">⠿</span>
+          <label class="toggle" title="Switch this rule on or off">
+            <input type="checkbox" class="f-enabled" aria-label="Rule switched on" />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+          <button class="field-title" type="button" aria-expanded="false">
+            <span class="title-line">
+              <span class="f-name">Field</span>
+              <span class="badge site f-scope"></span>
+            </span>
+            <span class="f-summary"></span>
+          </button>
+          <div class="field-tools">
+            <button class="icon f-up" type="button" title="Move up" aria-label="Move up">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 13V3M4 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon f-down" type="button" title="Move down" aria-label="Move down">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 3v10M4 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon f-dup" type="button" title="Make a copy" aria-label="Make a copy">
+              <svg viewBox="0 0 16 16" width="16" height="16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 3.2V3A1.5 1.5 0 0 0 9 1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h.2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <button class="icon danger f-del" type="button" title="Delete" aria-label="Delete">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M2.5 4h11M6 4V2.5h4V4M4 4l.7 9.1A1.5 1.5 0 0 0 6.2 14.5h3.6a1.5 1.5 0 0 0 1.5-1.4L12 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-body" hidden>
+          <label class="field">
+            <span class="label">Rule name</span>
+            <input type="text" class="control f-name-input" />
+          </label>
+
+          <section class="step">
+            <h4><span class="step-n">1</span> Which fields?</h4>
+            <div class="f-values-wrap">
+              <p class="step-help f-values-help">Words to look for in the field’s name, label or placeholder. One per line.</p>
+              <textarea rows="3" class="control f-values" placeholder="email&#10;e-mail"></textarea>
+            </div>
+            <div class="f-selector-wrap" hidden>
+              <p class="step-help">A CSS selector for the fields to fill.</p>
+              <input type="text" class="control f-selector" placeholder="input[name='email']" />
+            </div>
+          </section>
+
+          <section class="step">
+            <h4><span class="step-n">2</span> What should go in?</h4>
+            <label class="field">
+              <span class="label">Value</span>
+              <select class="control f-type-input"></select>
+            </label>
+            <div class="type-options f-typeoptions"></div>
+            <div class="preview-row">
+              <button class="btn small f-preview" type="button">Show examples</button>
+              <span class="preview-out f-preview-out"></span>
+            </div>
+          </section>
+
+          <section class="step">
+            <h4><span class="step-n">3</span> On which websites?</h4>
+            <div class="choice-row">
+              <label class="radio"><input type="radio" class="f-where" value="all" /> Every website</label>
+              <label class="radio"><input type="radio" class="f-where" value="some" /> Only these websites</label>
+            </div>
+            <div class="f-urls-wrap" hidden>
+              <textarea rows="2" class="control f-urls" placeholder="example.com"></textarea>
+              <label class="field inline">
+                <span class="label">Written as</span>
+                <select class="control f-urlmode"></select>
+              </label>
+            </div>
+          </section>
+
+          <details class="advanced">
+            <summary>Advanced matching</summary>
+            <label class="field">
+              <span class="label">How to compare the words</span>
+              <select class="control f-matchmode"></select>
+            </label>
+            <div class="field f-matchtypes-wrap">
+              <span class="label">Where to look</span>
+              <div class="chips f-matchtypes"></div>
+            </div>
+          </details>
+        </div>
+      </article>
+    </template>
+
+    <!-- --------------------------------------------------- form map card -->
+    <template id="formTemplate">
+      <article class="field-card">
+        <div class="field-head">
+          <label class="toggle" title="Switch this form map on or off">
+            <input type="checkbox" class="m-enabled" aria-label="Form map switched on" />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+          <button class="field-title" type="button" aria-expanded="false">
+            <span class="title-line">
+              <span class="f-name m-name"></span>
+              <span class="badge m-trigger"></span>
+              <span class="badge site m-scope"></span>
+            </span>
+            <span class="f-summary m-summary"></span>
+          </button>
+          <div class="field-tools">
+            <button class="icon m-dup" type="button" title="Make a copy" aria-label="Make a copy">
+              <svg viewBox="0 0 16 16" width="16" height="16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10.5 3.2V3A1.5 1.5 0 0 0 9 1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h.2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <button class="icon danger m-del" type="button" title="Delete" aria-label="Delete">
+              <svg viewBox="0 0 16 16" width="16" height="16"><path d="M2.5 4h11M6 4V2.5h4V4M4 4l.7 9.1A1.5 1.5 0 0 0 6.2 14.5h3.6a1.5 1.5 0 0 0 1.5-1.4L12 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-body" hidden>
+          <div class="row">
+            <label class="field grow">
+              <span class="label">Name</span>
+              <input type="text" class="control m-name-input" />
+            </label>
+            <label class="field">
+              <span class="label">Fill it</span>
+              <select class="control m-trigger-input"></select>
+            </label>
+          </div>
+          <p class="step-help m-trigger-help"></p>
+
+          <div class="table-wrap">
+            <table class="entries">
+              <thead>
+                <tr>
+                  <th class="col-on">Fill</th>
+                  <th>Field on the page</th>
+                  <th>What goes in</th>
+                  <th class="col-opts">Details</th>
+                </tr>
+              </thead>
+              <tbody class="m-entries"></tbody>
+            </table>
+          </div>
+
+          <div class="preview-row">
+            <button class="btn small m-preview" type="button">Show example values</button>
+            <span class="preview-out m-preview-out"></span>
+          </div>
+
+          <details class="advanced">
+            <summary>Advanced</summary>
+            <div class="row">
+              <label class="field grow">
+                <span class="label">Works on these web addresses (one per line)</span>
+                <textarea rows="2" class="control m-urls"></textarea>
+              </label>
+              <label class="field">
+                <span class="label">Written as</span>
+                <select class="control m-urlmode"></select>
+              </label>
+            </div>
+            <label class="field">
+              <span class="label">The form on the page (CSS selector)</span>
+              <input type="text" class="control m-formkey" />
+            </label>
+            <label class="check"><input type="checkbox" class="m-once" /> Fill only once each time the page loads</label>
+            <label class="check"><input type="checkbox" class="m-empty" /> Only fill when the form is still empty</label>
+            <div class="row">
+              <label class="field">
+                <span class="label">Pause after each dropdown (ms)</span>
+                <input type="number" min="0" step="50" class="control m-stepdelay" />
+              </label>
+              <label class="field">
+                <span class="label">Wait for a dropdown to load (ms)</span>
+                <input type="number" min="0" step="100" class="control m-waitoptions" />
+              </label>
+            </div>
+            <p class="step-help">Raise these two if dropdowns that depend on each other, like Division &rarr; District, come out empty.</p>
+          </details>
+        </div>
+      </article>
+    </template>
+
+    <script src="../common/constants.js"></script>
+    <script src="../common/regexgen.js"></script>
+    <script src="../common/random.js"></script>
+    <script src="../common/generator.js"></script>
+    <script src="../common/matcher.js"></script>
+    <script src="../common/rulepacks.js"></script>
+    <script src="../common/formmap.js"></script>
+    <script src="../common/storage.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

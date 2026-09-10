@@ -1,0 +1,11 @@
+# Build output — rebuilt from src/ any time, see STORE_LISTING.md
+dist/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Just in case a local Node setup ever gets added
+node_modules/
+npm-debug.log*

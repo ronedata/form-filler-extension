@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "Form Filler",
+  "version": "1.10.1",
+  "description": "Fill forms with fake, realistic data in one click. Unlimited custom fields with per-URL rules.",
+  "minimum_chrome_version": "102",
+  "permissions": ["storage", "contextMenus", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_idle",
+      "js": [
+        "src/common/constants.js",
+        "src/common/regexgen.js",
+        "src/common/random.js",
+        "src/common/generator.js",
+        "src/common/matcher.js",
+        "src/common/formmap.js",
+        "src/common/storage.js",
+        "src/content/filler.js",
+        "src/content/content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Form Filler",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "fill-all-fields": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Fill all fields on the page"
+    },
+    "fill-this-form": {
+      "suggested_key": { "default": "Alt+Shift+D" },
+      "description": "Fill the form containing the focused field"
+    },
+    "fill-this-input": {
+      "suggested_key": { "default": "Alt+Shift+E" },
+      "description": "Fill only the focused field"
+    }
+  }
+}

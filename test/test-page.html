@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form Filler — test page</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 32px 20px 80px;
+        background: #f6f7f9;
+        color: #111827;
+        font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      .wrap { max-width: 760px; margin: 0 auto; }
+      h1 { font-size: 20px; margin: 0 0 4px; }
+      p.lead { color: #6b7280; margin: 0 0 24px; }
+      form {
+        background: #fff;
+        border: 1px solid #e2e5ea;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      h2 { font-size: 15px; margin: 0 0 14px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+      label { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: #6b7280; }
+      input, select, textarea {
+        padding: 7px 9px;
+        border: 1px solid #d5d9e0;
+        border-radius: 7px;
+        font: inherit;
+        color: #111827;
+        background: #fff;
+      }
+      textarea { resize: vertical; }
+      fieldset { border: 1px solid #e2e5ea; border-radius: 8px; margin: 14px 0 0; }
+      legend { font-size: 12.5px; color: #6b7280; padding: 0 6px; }
+      .inline { display: flex; flex-direction: row; align-items: center; gap: 7px; color: #111827; }
+      .note { font-size: 12.5px; color: #6b7280; margin: -6px 0 12px; }
+      .suggest {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 5;
+        background: #fff;
+        border: 1px solid #d5d9e0;
+        border-radius: 7px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .suggest [role="option"] { padding: 7px 10px; cursor: pointer; color: #111827; }
+      .suggest [role="option"]:hover { background: #eef2ff; }
+      .editable {
+        min-height: 60px;
+        padding: 8px 10px;
+        border: 1px solid #d5d9e0;
+        border-radius: 7px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Form Filler — test page</h1>
+      <p class="lead">
+        Open this file in the browser and use <strong>Alt+Shift+F</strong>, the toolbar popup, or the
+        right-click menu to check your rules.
+      </p>
+
+      <form id="account">
+        <h2>Account</h2>
+        <div class="grid">
+          <label>First name <input type="text" name="firstName" /></label>
+          <label>Last name <input type="text" name="last_name" /></label>
+          <label>Email <input type="email" name="email" placeholder="you@example.com" /></label>
+          <label>Username <input type="text" name="username" /></label>
+          <label>Password <input type="password" name="password" /></label>
+          <label>Confirm password <input type="password" name="password_confirm" /></label>
+          <label>Phone <input type="tel" name="phone" /></label>
+          <label>Website <input type="url" name="website" /></label>
+        </div>
+      </form>
+
+      <form id="address">
+        <h2>Address</h2>
+        <div class="grid">
+          <label>Street <input type="text" name="address1" /></label>
+          <label>City <input type="text" name="city" /></label>
+          <label>State <input type="text" name="state" /></label>
+          <label>Zip code <input type="text" name="zip" /></label>
+          <label>
+            Country
+            <select name="country">
+              <option value="">Choose a country</option>
+              <option value="us">United States</option>
+              <option value="bd">Bangladesh</option>
+              <option value="uk">United Kingdom</option>
+              <option value="de">Germany</option>
+            </select>
+          </label>
+          <label>Company <input type="text" name="company" /></label>
+          <label>
+            Gender
+            <select name="gender">
+              <option value="">-- Select --</option>
+              <option value="m">Male</option>
+              <option value="f">Female</option>
+              <option value="o">Other</option>
+            </select>
+          </label>
+          <label>
+            Branch
+            <select name="branch">
+              <option>Dhaka</option>
+              <option>Chattogram</option>
+              <option>Sylhet</option>
+            </select>
+          </label>
+        </div>
+      </form>
+
+      <form id="details">
+        <h2>Typed inputs</h2>
+        <div class="grid">
+          <label>Age <input type="number" name="age" min="18" max="99" /></label>
+          <label>Quantity <input type="number" name="qty" min="1" max="10" step="1" /></label>
+          <label>Birth date <input type="date" name="dob" /></label>
+          <label>Appointment <input type="datetime-local" name="appointment" /></label>
+          <label>Start time <input type="time" name="startTime" /></label>
+          <label>Month <input type="month" name="month" /></label>
+          <label>Week <input type="week" name="week" /></label>
+          <label>Favourite colour <input type="color" name="colour" /></label>
+          <label>Satisfaction <input type="range" name="satisfaction" min="0" max="10" /></label>
+          <label>Search <input type="search" name="search" /></label>
+        </div>
+
+        <fieldset>
+          <legend>Plan</legend>
+          <label class="inline"><input type="radio" name="plan" value="free" /> Free</label>
+          <label class="inline"><input type="radio" name="plan" value="pro" /> Pro</label>
+          <label class="inline"><input type="radio" name="plan" value="team" /> Team</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Consent</legend>
+          <label class="inline"><input type="checkbox" name="terms" /> I agree to the terms and conditions</label>
+          <label class="inline"><input type="checkbox" name="newsletter" /> Send me the newsletter</label>
+          <label class="inline"><input type="checkbox" name="beta" /> Join the beta programme</label>
+        </fieldset>
+
+        <label style="margin-top: 14px">
+          Comments
+          <textarea name="comments" rows="4"></textarea>
+        </label>
+
+        <label style="margin-top: 14px">
+          Rich text (contenteditable)
+          <div class="editable" contenteditable="true" data-name="bio" aria-label="Short bio"></div>
+        </label>
+      </form>
+
+      <form id="async">
+        <h2>Loads over the wire</h2>
+        <p class="note">
+          These behave like a real backend: the dropdowns cascade with a delay, and the guardian
+          field only shows suggestions a moment after you type. Map this form to try them.
+        </p>
+        <div class="grid">
+          <label>
+            Division
+            <select name="division">
+              <option value="">-- Select division --</option>
+              <option value="dhaka">Dhaka</option>
+              <option value="ctg">Chattogram</option>
+              <option value="sylhet">Sylhet</option>
+            </select>
+          </label>
+          <label>
+            District
+            <select name="district"><option value="">-- Select district --</option></select>
+          </label>
+          <label>
+            Thana
+            <select name="thana"><option value="">-- Select thana --</option></select>
+          </label>
+        </div>
+
+        <label style="margin-top: 14px; position: relative">
+          Guardian (type at least 3 characters, e.g. <code>017</code>)
+          <input type="text" name="guardian" autocomplete="off" />
+          <input type="hidden" name="guardianId" value="" />
+          <div id="suggestBox" class="suggest" hidden></div>
+        </label>
+      </form>
+
+      <form id="skip">
+        <h2>Should be skipped</h2>
+        <div class="grid">
+          <label>Disabled <input type="text" name="disabledField" disabled /></label>
+          <label>Read only <input type="text" name="readonlyField" readonly value="locked" /></label>
+          <label>Opted out (<code>.no-autofill</code>) <input type="text" name="optedOut" class="no-autofill" /></label>
+          <input type="hidden" name="csrf" value="abc123" />
+        </div>
+      </form>
+    </div>
+    <script>
+      /* A stand-in for a real backend, so the async fields behave like the ones
+         Form Filler has to cope with in the wild. */
+      (function () {
+        const DELAY = 500;
+        const $ = (s) => document.querySelector(s);
+
+        const DISTRICTS = {
+          dhaka: ['Gazipur', 'Narayanganj', 'Tangail'],
+          ctg: ['Cox’s Bazar', 'Feni', 'Cumilla'],
+          sylhet: ['Moulvibazar', 'Habiganj']
+        };
+        const THANAS = ['Sadar', 'Bazar', 'Notun Para'];
+
+        function repopulate(select, list, placeholder) {
+          select.innerHTML = '';
+          const first = new Option(placeholder, '');
+          select.appendChild(first);
+          list.forEach((name) => select.appendChild(new Option(name, name.toLowerCase())));
+        }
+
+        $('[name="division"]').addEventListener('change', (event) => {
+          repopulate($('[name="district"]'), [], '-- Loading… --');
+          repopulate($('[name="thana"]'), [], '-- Select thana --');
+          if (!event.target.value) return;
+          setTimeout(() => {
+            repopulate($('[name="district"]'), DISTRICTS[event.target.value] || [], '-- Select district --');
+          }, DELAY);
+        });
+
+        $('[name="district"]').addEventListener('change', (event) => {
+          repopulate($('[name="thana"]'), [], '-- Loading… --');
+          if (!event.target.value) return;
+          setTimeout(() => repopulate($('[name="thana"]'), THANAS, '-- Select thana --'), DELAY);
+        });
+
+        const PEOPLE = [
+          'Rahim Uddin — 01711111111',
+          'Karim Mia — 01722222222',
+          'Selina Akter — 01733333333',
+          'Nusrat Jahan — 01844444444'
+        ];
+        const box = $('#suggestBox');
+        const guardian = $('[name="guardian"]');
+
+        guardian.addEventListener('input', () => {
+          box.hidden = true;
+          box.innerHTML = '';
+          const query = guardian.value.trim();
+          if (query.length < 3) return;
+          setTimeout(() => {
+            const hits = PEOPLE.filter((p) => p.toLowerCase().includes(query.toLowerCase()));
+            hits.forEach((name) => {
+              const item = document.createElement('div');
+              item.setAttribute('role', 'option');
+              item.textContent = name;
+              item.addEventListener('mousedown', () => {
+                guardian.value = name;
+                document.querySelector('[name="guardianId"]').value = String(PEOPLE.indexOf(name) + 101);
+                box.hidden = true;
+              });
+              box.appendChild(item);
+            });
+            box.hidden = hits.length === 0;
+          }, DELAY);
+        });
+
+        document.addEventListener('click', (event) => {
+          if (event.target !== guardian && !box.contains(event.target)) box.hidden = true;
+        });
+      })();
+    </script>
+  </body>
+</html>

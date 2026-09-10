@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Form Filler</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="head">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <h1>Form Filler</h1>
+        <span class="version" id="version"></span>
+      </div>
+      <button id="openOptions" class="head-btn" type="button">Settings</button>
+    </header>
+
+    <section class="site" aria-live="polite">
+      <div class="site-host" id="siteHost">&mdash;</div>
+      <div class="site-meta" id="siteMeta">Reading page&hellip;</div>
+    </section>
+
+    <button class="saved" id="fillMapped" data-command="fill-mapped-forms" type="button" hidden>
+      <span class="saved-kicker">Saved form on this page</span>
+      <span class="saved-name" id="mappedName"></span>
+      <span class="saved-cta">Fill it now</span>
+    </button>
+
+    <div class="actions">
+      <button class="act primary" data-command="fill-all-fields" type="button">
+        <span class="act-text">
+          <span class="act-title">Fill all fields</span>
+          <span class="act-desc">Every field on this page</span>
+        </span>
+        <kbd>Alt+Shift+F</kbd>
+      </button>
+      <button class="act" data-command="fill-this-form" type="button">
+        <span class="act-text">
+          <span class="act-title">Fill this form</span>
+          <span class="act-desc">Only the form you last clicked in</span>
+        </span>
+        <kbd>Alt+Shift+D</kbd>
+      </button>
+      <button class="act" data-command="fill-this-input" type="button">
+        <span class="act-text">
+          <span class="act-title">Fill this field</span>
+          <span class="act-desc">Only the field you last clicked in</span>
+        </span>
+        <kbd>Alt+Shift+E</kbd>
+      </button>
+    </div>
+
+    <p class="result" id="status" role="status" hidden></p>
+
+    <nav class="more" aria-label="More actions">
+      <button class="more-btn" id="mapForm" type="button">
+        <span class="more-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="16" height="16"><path d="M3 2.5h7.5L13 5v8.5H3z M5.5 8h5 M5.5 10.5h5 M5.5 5.5h2.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="more-text">
+          <span class="more-title">Map this form</span>
+          <span class="more-desc">Save its fields so it fills itself next time</span>
+        </span>
+      </button>
+      <button class="more-btn" id="addSiteRule" type="button">
+        <span class="more-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <span class="more-text">
+          <span class="more-title">New rule for this website</span>
+          <span class="more-desc" id="addSiteRuleDesc">Choose what goes into a field here</span>
+        </span>
+      </button>
+    </nav>
+
+    <script src="../common/constants.js"></script>
+    <script src="../common/regexgen.js"></script>
+    <script src="../common/random.js"></script>
+    <script src="../common/generator.js"></script>
+    <script src="../common/matcher.js"></script>
+    <script src="../common/formmap.js"></script>
+    <script src="../common/storage.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
