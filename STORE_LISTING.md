@@ -7,7 +7,7 @@ if you want to.
 
 ## Package to upload
 
-`dist/form-filler-v1.10.4.zip` — matches the version currently in
+`dist/form-filler-v1.10.5.zip` — matches the version currently in
 `manifest.json`. Built from `manifest.json` + `icons/` + `src/` only, with
 `manifest.json` sitting at the zip's top level (not nested inside another
 folder or zip). `test/`, `README.md`, `CHANGELOG.md`, `PRIVACY.md` and this
@@ -27,17 +27,16 @@ Compress-Archive -Path "$staging\*" -DestinationPath "dist\form-filler-v<version
 ## Privacy policy URL
 
 ```
-https://github.com/ronedata/form-filler-extension/blob/main/PRIVACY.md
+https://ronedata.github.io/form-filler-extension/privacy/
 ```
 
-Already public — the repo is public, so this needs no extra setup and works
-right now. It stays in sync automatically: whatever `PRIVACY.md` says at the
-time someone opens the link is what they see.
+A standalone public webpage, served via GitHub Pages — this is the URL
+Partner Center's privacy-policy field expects (a real webpage, not a GitHub
+blob view). Already public, needs no extra setup, and rebuilds automatically
+whenever `PRIVACY.md` changes and `privacy/index.html` is updated to match.
 
-A more visually designed standalone copy of the same policy also exists (see
-`PRIVACY.md` for the link) if you'd rather use that instead — just open it
-once and use its share menu to make it public first, since that one is
-private until you do.
+The same policy is also readable directly on GitHub, always in sync:
+`https://github.com/ronedata/form-filler-extension/blob/main/PRIVACY.md`
 
 ## Single purpose description
 
@@ -117,7 +116,6 @@ fresh set specifically framed for the store listing (Edge wants 1280×800 or
       can't launch a real browser with `--load-extension` to do this last
       check for you — everything else has been verified by other means (see
       `CHANGELOG.md`), but this one step needs a real browser window.
-- [x] Privacy policy URL is already public (the GitHub link above needs no
-      extra step) — only relevant if you choose the standalone designed page
-      instead, which does need its share menu used once.
+- [x] Privacy policy URL is already public and live (the GitHub Pages link
+      above needs no extra step).
 - [ ] Have a support/contact email ready — the dashboard requires one.

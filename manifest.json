@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Form Filler",
-  "version": "1.10.4",
+  "version": "1.10.5",
   "description": "Fill forms with fake, realistic data in one click. Unlimited custom fields with per-URL rules.",
   "homepage_url": "https://github.com/ronedata/form-filler-extension",
   "minimum_chrome_version": "102",

@@ -146,12 +146,10 @@ listing.
 ---
 
 *The URL to paste into the Edge Add-ons dashboard's privacy policy field:*
-*https://github.com/ronedata/form-filler-extension/blob/main/PRIVACY.md*
-*— this file, rendered by GitHub. It's public already (the repo is public),*
-*no extra setup needed, and it updates the moment this file is pushed.*
+*https://ronedata.github.io/form-filler-extension/privacy/*
+*— a standalone public webpage (via GitHub Pages), matching what Microsoft*
+*Partner Center asks for. It's public already, no extra setup needed, and*
+*it's rebuilt automatically whenever this policy changes.*
 
-*A more visually designed copy of the same policy is also published at*
-*https://claude.ai/code/artifact/9fe4b3fa-853b-4075-ab33-aebbaa9826d5 — use*
-*that one instead if you'd rather link a standalone page, but open it once*
-*and use its share menu to make it public first (artifacts are private by*
-*default; the GitHub link above needs no such step).*
+*This file itself, rendered by GitHub, is also public and always in sync:*
+*https://github.com/ronedata/form-filler-extension/blob/main/PRIVACY.md*

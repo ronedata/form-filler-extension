@@ -4,6 +4,18 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.5 — 2026-09-10
+
+### Changed
+
+- The in-app Options → Help "Privacy" card now links to
+  `https://ronedata.github.io/form-filler-extension/privacy/`, a standalone
+  public webpage published via GitHub Pages, instead of the GitHub blob view
+  of `PRIVACY.md`. Microsoft Partner Center's privacy-policy field expects an
+  actual public webpage rather than a rendered file view or a
+  private-by-default page, so this is the URL used there too. `PRIVACY.md`
+  and `STORE_LISTING.md` were updated to match; no behavior change.
+
 ## 1.10.4 — 2026-09-11
 
 ### Added
