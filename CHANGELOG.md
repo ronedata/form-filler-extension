@@ -4,6 +4,24 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.8 — 2026-09-13
+
+### Fixed
+
+- A generated phone number (or NID, or any other digit code) written into an
+  `<input type="number">` field could lose its leading zero. Local-format BD
+  mobile numbers (`01XXXXXXXXX`) go through `parseFloat`/`String` when the
+  target field is numeric, and numbers can't have leading zeros - a valid
+  11-digit number silently became an invalid 10-digit one. Reported by the
+  user on `ums-student-1.osl.team/Registration`, whose mobile field takes
+  exactly this shape (`type="number"`, no min/max/step) and re-validates the
+  value on input; the shortened number failed that page's own check and got
+  flagged invalid. The value is now left exactly as generated whenever the
+  field's own min/max/step don't actually require reshaping it into a plain
+  number - reproduced against the live page (10-digit invalid value before,
+  correct 11+ digit value with no invalid state after) and confirmed with a
+  negative-control run against the old code.
+
 ## 1.10.7 — 2026-09-13
 
 ### Fixed

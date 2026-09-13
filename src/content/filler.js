@@ -112,14 +112,23 @@
    * Type-specific writers
    * ---------------------------------------------------------------- */
   function clampNumber(el, value) {
-    let n = parseFloat(String(value).replace(/[^0-9.\-]/g, ''));
+    const digits = String(value).replace(/[^0-9.\-]/g, '');
+    let n = parseFloat(digits);
     if (!Number.isFinite(n)) n = R.int(1, 100);
     const min = el.min !== '' ? parseFloat(el.min) : null;
     const max = el.max !== '' ? parseFloat(el.max) : null;
+    const step = parseFloat(el.step);
+    const outOfRange = (min !== null && n < min) || (max !== null && n > max);
+    const stepped = Number.isFinite(step) && step > 0 && min !== null;
+    /* A phone number, NID or other digit code isn't a quantity - a leading
+     * zero in it is meaningful (e.g. a local BD mobile number, 01XXXXXXXXX),
+     * and round-tripping it through parseFloat/String would silently drop
+     * that zero. Leave it exactly as generated unless the element's own
+     * min/max/step actually require reshaping it into a real number. */
+    if (!outOfRange && !stepped && /^-?\d+(\.\d+)?$/.test(digits)) return digits;
     if (min !== null && n < min) n = min;
     if (max !== null && n > max) n = max;
-    const step = parseFloat(el.step);
-    if (Number.isFinite(step) && step > 0 && min !== null) {
+    if (stepped) {
       n = min + Math.round((n - min) / step) * step;
       n = Number(n.toFixed(6));
     }
