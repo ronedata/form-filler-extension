@@ -4,6 +4,24 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.9 — 2026-09-13
+
+### Fixed
+
+- "Fill all fields" could throw "Cannot read properties of undefined
+  (reading 'ownerDocument')" and skip a radio button on any page with a
+  `<input type="radio">` that has neither a `name` nor an `id` (rare, but
+  exactly the case on pauljadam.com's HTML5 input-types demo page, and any
+  other bare unnamed radio). Radios are grouped for filling by a key built
+  from their name/id, falling back to `Math.random()` when both are
+  missing - but that fallback was called twice for the same element and
+  returned two different values each time, so the group-membership check
+  found nothing (not even the element itself), leaving an empty group and
+  crashing a few calls later. The fallback identity is now cached per
+  element so repeated calls agree. Reproduced end-to-end against the real
+  page (crash before, clean fill after) with a negative-control run
+  against the old code confirming the before state.
+
 ## 1.10.8 — 2026-09-13
 
 ### Fixed

@@ -898,9 +898,21 @@
     return nodes;
   }
 
+  /* A radio with neither name nor id has no group at all - it's standalone.
+   * Math.random() as a fallback identity broke that: called twice for the
+   * same element it returns two different values, so the group-membership
+   * filter below finds nothing (not even the element itself), leaving an
+   * empty group and a crash a few calls later. Cache one random id per
+   * element instead, so repeated calls agree. */
+  const anonymousRadioIds = new WeakMap();
   function radioKey(el) {
     const form = el.form ? el.form.name || el.form.id || 'form' : 'noform';
-    return form + '::' + (el.name || el.id || Math.random());
+    let identity = el.name || el.id;
+    if (!identity) {
+      if (!anonymousRadioIds.has(el)) anonymousRadioIds.set(el, 'anon' + anonymousRadioIds.size);
+      identity = anonymousRadioIds.get(el);
+    }
+    return form + '::' + identity;
   }
 
   /* element -> pseudo field, for every element a saved map pins down. */
