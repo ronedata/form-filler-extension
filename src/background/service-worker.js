@@ -33,7 +33,19 @@ const MENU = {
 /* ------------------------------------------------------------------ *
  * Context menu
  * ------------------------------------------------------------------ */
-async function buildContextMenu() {
+/* onInstalled, onStartup and the storage.onChanged listener below can all
+ * fire close together (seeding the starter fields on first install writes
+ * to storage, which itself triggers onChanged while onInstalled's own call
+ * is still pending) - chained through here so only one rebuild ever runs at
+ * a time, instead of two overlapping removeAll()+create() calls racing and
+ * creating the same ids twice. */
+let menuBuildChain = Promise.resolve();
+function buildContextMenu() {
+  menuBuildChain = menuBuildChain.then(doBuildContextMenu, doBuildContextMenu);
+  return menuBuildChain;
+}
+
+async function doBuildContextMenu() {
   await chrome.contextMenus.removeAll();
   const options = await FF.loadOptions();
   if (!options.settings.showContextMenu) return;

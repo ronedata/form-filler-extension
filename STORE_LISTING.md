@@ -7,7 +7,7 @@ if you want to.
 
 ## Package to upload
 
-`dist/form-filler-v1.10.6.zip` — matches the version currently in
+`dist/form-filler-v1.10.7.zip` — matches the version currently in
 `manifest.json`. Built from `manifest.json` + `icons/` + `src/` only, with
 `manifest.json` sitting at the zip's top level (not nested inside another
 folder or zip). `test/`, `README.md`, `CHANGELOG.md`, `PRIVACY.md` and this

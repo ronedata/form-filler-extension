@@ -4,6 +4,23 @@ Versions follow [semantic versioning](https://semver.org): `MAJOR.MINOR.PATCH` �
 bumps MAJOR, a new feature bumps MINOR, a fix or tweak bumps PATCH. The number here always matches
 `version` in [manifest.json](manifest.json).
 
+## 1.10.7 — 2026-09-13
+
+### Fixed
+
+- `edge://extensions` could show six "Cannot create item with duplicate id"
+  errors (`form-filler-root`, `fill-all-fields`, `fill-this-form`,
+  `fill-this-input`, `form-filler-sep`, `form-filler-options`) right after
+  install. On a fresh install, seeding the starter fields writes to storage,
+  which fires `chrome.storage.onChanged` and rebuilds the context menu — at
+  the same moment `onInstalled`'s own code was already rebuilding it. Both
+  rebuilds called `contextMenus.removeAll()` and re-created the same six
+  items at once, and whichever finished last collided with items the other
+  had just created. Context menu rebuilds are now chained through a single
+  queue so only one ever runs at a time, however many triggers fire close
+  together. No behavior change — the menu ends up the same either way, this
+  just stops the duplicate-id errors.
+
 ## 1.10.6 — 2026-09-10
 
 ### Fixed
